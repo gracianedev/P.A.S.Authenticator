@@ -1,0 +1,51 @@
+.lado-esquerdo {
+    background-color: rgb(5,21,39);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lado-direito {
+    background-color: rgb(30,53,118);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
+    max-width: 80%;
+    height: auto;
+  }
+
+  @media (max-width: 767.98px) {
+    .lado-esquerdo,
+    .lado-direito {
+      height: 50vh; 
+    }
+  }
+
+  button {
+    display: inline-block;
+    text-align: center;
+    color: rgb(29,33,35);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: larger;
+    background-color: rgb(98,189,235);
+    border-radius: 10px;
+    border-color: transparent;
+    width: auto;
+    padding: 5px 30px;
+    margin-top: 10px;  
+}
+
+   label {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: x-large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
