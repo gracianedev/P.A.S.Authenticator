@@ -4,9 +4,11 @@ package com.pas.pasauthenticator;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class PasauthenticatorApplication {
+public class PasauthenticatorApplication extends SpringBootServletInitializer{
 
     public static void main(String[] args) {
                 Dotenv dotenv = Dotenv.load();
@@ -23,5 +25,10 @@ public class PasauthenticatorApplication {
               
         
         SpringApplication.run(PasauthenticatorApplication.class, args);
+    }
+    
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(PasauthenticatorApplication.class);
     }
 }
