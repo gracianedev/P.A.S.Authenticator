@@ -16,29 +16,38 @@ import java.util.List;
 import lombok.Data;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import java.time.Instant;
 
 /**
  *
  * @author GFS_Mac
  */
-
 @Data
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
-    
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotBlank(message = "O e-mail é obrigatório.")
     @Email(message = "O e-mail informado não é válido.")
     private String email;
-    
-    @OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Otp> otpList = new ArrayList<>();
-    
+
     public void addOtp(Otp newOtp) {
         newOtp.setUser(this);
         this.otpList.add(newOtp);
     }
+
+   
+    public Instant getOtpTime() {
+    if (otpList == null || otpList.isEmpty()) {
+        return null;
+    }
+    return otpList.get(otpList.size() - 1).getTimestamp();
+}
+
 }
