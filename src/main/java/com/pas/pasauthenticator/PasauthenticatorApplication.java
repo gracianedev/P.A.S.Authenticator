@@ -11,17 +11,20 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class PasauthenticatorApplication extends SpringBootServletInitializer{
 
     public static void main(String[] args) {
-                Dotenv dotenv = Dotenv.load();
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
         // Mail
-        System.setProperty("MAIL_USERNAME", dotenv.get("MAIL_USERNAME"));
-        System.setProperty("MAIL_PASSWORD", dotenv.get("MAIL_PASSWORD"));
+        if (dotenv.get("MAIL_USERNAME") != null) {
+            System.setProperty("MAIL_USERNAME", dotenv.get("MAIL_USERNAME"));
+            System.setProperty("MAIL_PASSWORD", dotenv.get("MAIL_PASSWORD"));
+        }
 
         // Datasource
-        System.setProperty("SPRING_DATASOURCE_URL", dotenv.get("spring.datasource.url"));
-        System.setProperty("SPRING_DATASOURCE_USERNAME", dotenv.get("spring.datasource.username"));
-        System.setProperty("SPRING_DATASOURCE_PASSWORD", dotenv.get("spring.datasource.password"));
-
+        if (dotenv.get("SPRING_DATASOURCE_URL") != null) {
+            System.setProperty("SPRING_DATASOURCE_URL", dotenv.get("SPRING_DATASOURCE_URL"));
+            System.setProperty("SPRING_DATASOURCE_USERNAME", dotenv.get("SPRING_DATASOURCE_USERNAME"));
+            System.setProperty("SPRING_DATASOURCE_PASSWORD", dotenv.get("SPRING_DATASOURCE_PASSWORD"));
+        }
               
         
         SpringApplication.run(PasauthenticatorApplication.class, args);

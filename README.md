@@ -1,101 +1,97 @@
-# P.A.S. Authenticator One-Time Password Generator
-Sistema web gerador de senhas de uso único (OTP - One-Time Password ) 
+# 🔐 P.A.S. Authenticator (OTP Generator)
 
-**P (Password)**  
-**A (Authentication)**  
-**S (Security)**  
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/Framework-Spring%20Boot-green)
+![MySQL](https://img.shields.io/badge/Database-MySQL-blue)
+![Status](https://img.shields.io/badge/Status-Concluído-brightgreen)
 
----
+> **Projeto Acadêmico:** Desenvolvido como parte do curso **Técnico em Desenvolvimento de Sistemas do Senac-RS**.
 
-## Status do Projeto
-Em desenvolvimento
+## 💻 Sobre o Projeto
 
----
+O **P.A.S. Authenticator** é um sistema web focado em segurança da informação que implementa um gerador de **One-Time Passwords (OTP)**.
 
-## Tecnologias Empregadas
+O projeto simula fluxos de autenticação moderna, como **Passwordless Login** (login sem senha) e **Autenticação Multifator (MFA)**, demonstrando na prática como proteger sistemas contra vulnerabilidades de credenciais estáticas.
 
-### Backend
-- Java (Spring Boot) para lógica de negócios e APIs REST.
+### 🌟 Funcionalidades Principais
+* **Geração de OTP:** Criação de códigos únicos usando algoritmos seguros (`SecureRandom`).
+* **Validação Temporal:** O código expira automaticamente após um tempo determinado (TTL).
+* **Simulação de Envio:** Integração preparada para disparo de tokens via e-mail.
+* **Segurança:** Bloqueio temporário após múltiplas tentativas falhas (proteção contra *Brute-Force*).
+* **Interface Web:** Front-end responsivo para teste do fluxo de usuário.
 
-### Banco de Dados
-- MySQL para armazenar usuários, OTPs e logs.
+## 📸 Screenshots
 
-### Frontend
-- HTML/CSS e JavaScript para as telas de login, validação de OTP e painel.
+<div align="center">
+  <img src="./docs/print_telas/login.png" alt="Tela de Login" width="400">
+  <img src="./docs/print_telas/token.png" alt="Tela de Validação de Token" width="400">
+</div>
 
-### Controle de Versão
-- Git para gerenciamento do código.
+## 🛠 Tecnologias Utilizadas
 
----
+* **Back-end:** Java com Spring Boot (API REST)
+* **Banco de Dados:** MySQL (JPA/Hibernate)
+* **Front-end:** HTML5, CSS3, JavaScript (Thymeleaf)
+* **Ferramentas:** Maven, Git, Mailtrap (para testes de e-mail)
 
-## Time de Desenvolvedores
-- graciane.dev@gmail.com
+## 🚀 Como Executar Localmente
 
----
+### Pré-requisitos
+* Java 17 instalado
+* MySQL rodando na porta 3306
+* Maven
 
-## Objetivo do Software
-Sistema web que gere senhas de uso único (OTP - One-Time Password) para autenticação ou verificação, oferecendo um método seguro para proteger transações ou acessos.
+### Passo a passo
 
----
+1. **Clone o repositório**
+   ```bash
+   git clone [https://github.com/gracianedev/P.A.S.Authenticator.git](https://github.com/gracianedev/P.A.S.Authenticator.git)
+   ```
 
-## Uso Pretendido
+2. **Configure o Banco de Dados**
+    * Crie um banco de dados no seu MySQL chamado `pas_authenticator`.
+    * Na raiz do projeto, crie um arquivo chamado `.env` (baseado no `.env.example`) com suas credenciais:
+      ```properties
+      SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/pas_authenticator
+      SPRING_DATASOURCE_USERNAME=seu_usuario
+      SPRING_DATASOURCE_PASSWORD=sua_senha
+      MAIL_USERNAME=seu_usuario_mailtrap
+      MAIL_PASSWORD=sua_senha_mailtrap
+      ```
+    <details>
+   <summary> Clique aqui para ver como configurar o Mailtrap (Grátis)</></summary>
 
-### Login Sem Senha (Passwordless Login)
-1. O usuário insere apenas o e-mail ou o número de telefone para iniciar o login.
-2. O sistema gera um OTP e o envia para o usuário.
-3. O usuário insere o código recebido para acessar o sistema.
+    1. Crie uma conta gratuita no [Mailtrap.io](https://mailtrap.io).
+    2. No painel, vá em **Email Testing** > **Inboxes**.
+    3. Clique em "My Inbox" e em "Show Credentials".
+    4. Copie o **Username** e **Password**.
+    5. Cole no seu arquivo `.env`:
+       ```properties
+       MAIL_USERNAME=coloque_o_username_aqui
+       MAIL_PASSWORD=coloque_o_password_aqui
+       ```
+   </details>
 
-**Benefícios:**
-- Evita o uso de senhas, que podem ser esquecidas ou roubadas.
-- Conveniente e rápido para o usuário.
-- Oferece uma camada adicional de proteção e modernidade ao processo de autenticação.
+3. **Popule o Banco de Dados (Usuário de Teste)**
+   * Como o banco inicia vazio, execute o comando SQL abaixo no seu banco de dados para criar um usuário inicial (utilize o e-mail criado no Mailtrap):
+   ```bash
+    INSERT INTO user (email, nome) VALUES ('test@email.com', 'Usuário Teste');
+   ```
 
-### Outros Possíveis Usos
+4. **Execute a aplicação**
+   ```bash
+   ./mvnw spring-boot:run
+   ```
 
-#### Autenticação Multifator (MFA)
-1. Após o usuário inserir sua senha, o sistema gera um OTP e o envia para o e-mail ou telefone do usuário.
-2. O login só é concluído quando o usuário insere o código correto no sistema.
+5. **Acesse**
+    * Abra o navegador em: `http://localhost:8080`
+    * Login: utilize o e-mail cadastrado para testar.
 
-**Benefício:**  
-Adiciona uma camada de segurança, mesmo que a senha do usuário seja comprometida.
+## 📚 Documentação
 
-#### Recuperação de Conta
-1. Quando o usuário esquece a senha, o sistema pode enviar um OTP para verificar a identidade antes de permitir a redefinição da senha.
+A documentação completa do projeto, incluindo diagramas, requisitos e relatórios de teste, está disponível na pasta [`/docs`](./docs) deste repositório.
 
-**Benefício:**  
-Aumenta a segurança durante o processo de recuperação de conta.
+## 👩‍💻 Autora
 
-#### Acesso Temporário
-1. Gere um OTP para permitir acesso temporário ao sistema sem a necessidade de uma conta permanente.
-
-**Benefício:**  
-Útil em sistemas onde usuários não cadastrados precisam de acesso limitado.
-
----
-
-## Vantagens de Usar OTP em Login
-1. **Segurança Melhorada:** Mesmo que um invasor tenha acesso ao e-mail ou telefone, ele precisará do OTP para concluir o login.
-2. **Conveniência:** Usuários não precisam memorizar senhas complexas.
-3. **Aplicabilidade Flexível:** Pode ser usado tanto como uma camada adicional quanto como substituto de senhas.
-4. **Adaptabilidade:** Pode ser implementado em várias situações, como login, redefinição de senha ou autenticação de transações.
-
----
-
-## Requisitos do Sistema
-
-### Funcionais
-- O sistema deve apresentar uma interface simples e intuitiva, com campos para o usuário informar seu e-mail e um botão para enviar o código de acesso.
-- Mensagens de feedback devem ser exibidas ao usuário, como:
-  - "E-mail inválido";
-  - "Código inválido ou expirado";
-  - "Limite de tentativas de login atingido".
-
-### Não Funcionais
-- O sistema deve ser acessado via navegador como uma aplicação web.
-- Deve haver integração com serviço de e-mail através de uma API confiável (ex.: JavaMail).
-- Um código de acesso único deve ser gerado, armazenado no banco de dados, juntamente com o timestamp de criação.
-- O código deve ser gerado utilizando um gerador de números aleatórios seguro (ex.: `java.security.SecureRandom`).
-- O sistema deve implementar o padrão Time-Based One-Time Password (TOTP), garantindo que o código tenha um tempo de expiração predefinido.
-- Deve verificar se o código informado está correto e dentro do prazo de validade para permitir o login.
-- Após múltiplas tentativas de login falhas, o envio de novos códigos deve ser temporariamente bloqueado como medida de proteção contra ataques de força bruta.
-
+[**Graciane**](mailto:graciane.dev@gmail.com)
+*****
